@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+    <title>daily_record</title>
+    <script src="js/mui.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/common.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+	<style type="text/css">
+			.mui-input-group {
+				margin-top: 20px;
+			}
+			.hide{
+				display: none;
+			}
+            .on{
+            	display: block;
+            }
+            .imag_display{
+				width:100px; 
+				height: 100px; 
+				display: inline-block;
+				margin-left: 15px;
+				margin-top: 8px;
+			}
+			.icon_image{
+				width:30px;
+				height:30x;
+				align-self: center;
+			}
+	</style>
+    </head>
+	<body>
+	<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">今日记录</h1>
+	<div id="reprot" class="report-btn" style="float: right;">
+		<button id="reprot-btn" class="mui-btn">报告</button>
+	</div>
+	</header>
+	<div class="mui-content">
+		<form id="common_table" class="mui-input-group">
+			<div id="input_day" class="mui-input-row">
+				<label>时间</label>
+				<input id="this_day" type="date" class="mui-input-clear mui-input"/>
+			</div>
+			<div id="input_weather" class="mui-input-row">
+				<label>天气</label>
+				<input id="this_weather" type="text" class="mui-input-clear mui-input"/>
+			</div>
+			<div id="input_medicine" class="mui-input-row">
+				<label>用药</label>
+				<select id="this_medicine" class="mui-table-view">
+					<option class="mui-table-view-cell" label="丙酸氟替卡松气雾剂" value="丙酸氟替卡松气雾剂"></option>
+					<option class="mui-table-view-cell" label="曲尼斯特" value="曲尼斯特"></option>
+					<option class="mui-table-view-cell" label="布地奈德气雾剂" value="布地奈德气雾剂"></option>
+				</select>
+			</div>
+		</form>
+		
+		<form id="dr_table" class="mui-input-group" style="margin-top:10px;" method="post" action="http://139.129.18.57/daily_record_add.php">
+			<div id="input_pef" class="mui-input-row">
+				<label>PEF峰值</label>
+				<input id="pef_value" type="number" class="mui-input-clear mui-input" placeholder="           单位为L/min"/>
+				<label>L/min</label>
+			</div>
+			<div id="input_sym1" class="mui-input-row">
+				<label>咳嗽</label>
+				<div id="sym1_value" class="mui-switch mui-switch-mini">
+ 					 <div class="mui-switch-handle"></div>
+				</div>
+			</div>
+			<div id="input_sym2" class="mui-input-row">
+				<label>喘息</label>
+				<div id="sym2_value" class="mui-switch mui-switch-mini">
+ 					 <div class="mui-switch-handle"></div>
+				</div>
+			</div>
+			<div id="input_sym3" class="mui-input-row">
+				<label>呼吸障碍</label>
+				<div id="sym3_value" class="mui-switch mui-switch-mini">
+ 					 <div class="mui-switch-handle"></div>
+				</div>
+			</div>
+		</form>
+		
+		<div id="input_meal" style="content_type">
+				<div id="image_list">
+					<h4><span>&nbsp;&nbsp;&nbsp;</span>记录三餐<h4><br />
+					<button style="margin-left:15px;width: 120px; background-color: cornflowerblue;" onclick="galleryImg()">相册</button>
+					<button style="margin-left:15px;width: 120px; background-color: cornflowerblue;" onclick="cameraImg()">拍照</button>
+				</div>
+				
+				<div id="image_list">
+					<!--<img id="captured_img1" class="imag_display" style="width:100px; height: 100px; display: inline-block;margin-left: 15px;margin-top: 8px;"/>-->
+				</div>
+		</div>
+		<div id="input_details" class="mui-input mui-input-clear" style="line-height:60px;margin-top: 10px">
+			<textarea id="details" placeholder="记录详细内容…" style="height:120px;"></textarea>
+		</div>
+		
+		<div class="mui-content-padded">
+				<button id= 'submit' class="mui-btn mui-btn-block mui-btn-primary">提交</button>
+		</div> 
+	</div>
+	</body>
+
+
+<script type="text/javascript">
+//图片获取、压缩、处理部分
+document.addEventListener( "plusready", onPlusReady, false );
+function onPlusReady() {
+}
+var index = 0;
+// 从相册中选择图片 
+function galleryImg() {
+	// 从相册中选择图片
+	console.log("从相册中选择图片:");
+    plus.gallery.pick( function(path){
+    	console.log(path);
+    	addImg(path);
+    }, function ( e ) {
+    	console.log( "取消选择图片" );
+    }, {filter:"image"} );
+}
+
+ function cameraImg() {
+    var cmr = plus.camera.getCamera(); 
+    cmr.captureImage( function ( p ) {        
+        plus.io.resolveLocalFileSystemURL( p, function ( entry ) {    
+            //if(files.length<2){  
+                  var localurl = entry.toLocalURL();//把拍照的目录路径，变成本地url路径，例如file:///........之类的。
+                  console.log("照片储存地址："+localurl);
+                  //var img = document.getElementById("captured_img1");
+                  //img.src = localurl;
+                  addImg(localurl);
+                  //}   
+                });   
+    	},function( error ) {
+            alert( "Capture image failed: "+error.message );
+        }  
+    );   
+}
+
+//图片显示区域
+function addImg(url){
+	var list = document.getElementById("image_list")
+	var img = document.createElement('img');
+	img.id = "created_"+index;
+	img.src = url;
+	img.className = "imag_display";
+	list.appendChild(img);
+	plus.storage.setItem(img.id,url);
+	index++;
+}
+</script>
+<script>
+(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					//预加载查询界面
+					var dailyDisplayPage = $.preload({
+						"id":'daily_display',
+						"url":'daily_display.html'
+					});
+					
+				    var dailyDisplayButton = doc.getElementById('reprot-btn');
+				    
+				    dailyDisplayButton.addEventListener('tap',function(event){
+				    	$.openWindow({
+				    		id:'daily_display',
+				    		show: {
+								aniShow: 'pop-in'
+							},
+				    		styles:{
+				    			popGesture:'hide'
+				    		},
+				    		waiting:{
+				    			autoShow: false
+				    		}
+				    	});
+				    });
+					//获取主页面传输的天气数据
+					var weather = plus.storage.getItem("weather")+" "+plus.storage.getItem("temp")+"°";
+					console.log("获取到本地天气："+weather);
+					document.getElementById("this_weather").value = weather;
+					
+					var username = plus.storage.getItem("username");
+					
+					//获取当前时间信息：
+					var input_day = doc.getElementById("this_day");
+					var today = new Date();
+					var times = "";
+					var mytime = today.toLocaleTimeString();
+					if(mytime<'12:00:00'){
+						times = 'morning';
+					}else{
+						times = 'evening';
+					}
+					
+					//获取处理上传数据
+					var input_medicine = doc.getElementById("this_medicine");
+					var input_pef = doc.getElementById("pef_value");
+					var input_sym1 = doc.getElementById("sym1_value");
+					var input_sym2 = doc.getElementById("sym2_value");
+					var input_sym3 = doc.getElementById("sym3_value");
+					var input_image = doc.getElementById("captured_img");
+					var input_detail = doc.getElementById("details");
+					
+					var submitBtn = doc.getElementById("submit");
+					var sym1 = false;
+					var sym2 = false;
+					var sym3 = false;
+					
+					input_sym1.addEventListener('toggle', function(event) {
+							sym1 = event.detail.isActive; 
+							});
+					input_sym2.addEventListener('toggle', function(event) {
+							sym2 = event.detail.isActive; 
+							});
+					input_sym3.addEventListener('toggle', function(event) {
+							sym3 = event.detail.isActive; 
+							});
+					//console.log("sym1的值："+sym1);
+					//添加监听事件
+					submitBtn.addEventListener("tap",sendInfo,false);
+					function sendInfo(){
+						
+						if(input_day.value == "" || input_medicine.value == "" || input_pef.value == ""){
+							plus.nativeUI.toast('您有遗漏的必填项目！');
+							return;
+						}
+						
+						var dailyRecord = {
+									"username":username,
+									"input_day":input_day.value,
+									"input_medicine":input_medicine.value,
+									"input_times":times,
+									"input_pef":input_pef.value,
+									"input_sym1":sym1,
+									"input_sym2":sym2,
+									"input_sym3":sym3,
+									"input_detail":input_detail.value
+						};
+						console.log(dailyRecord);
+						var recordData = JSON.stringify(dailyRecord);
+						console.log(recordData);
+						var sendXhr = new plus.net.XMLHttpRequest();
+						//sendXhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8;");
+						sendXhr.setRequestHeader('Content-Type','application/json; charset=utf-8');
+						sendXhr.open("POST","http://139.129.18.57/daily_record_add.php");
+						sendXhr.send(recordData);
+					    
+					    sendXhr.onreadystatechange = function () {
+					        switch ( sendXhr.readyState ) {
+					            case 0:
+					            	console.log( "sendXhr请求已初始化" );
+					            break;
+					            case 1:
+					            	console.log( "sendXhr请求已打开" );
+					            break;
+					            case 2:
+					            	console.log( "sendXhr请求已发送" );
+					            break;
+					            case 3:
+					                console.log( "sendXhr请求已响应");
+					            break;
+					            case 4:
+					                console.log( "sendXhr请求已完成");
+					                if ( sendXhr.status == 200 ) {
+					                	alert( "sendXhr请求成功："+sendXhr.responseText );
+					                } else {
+					                	alert( "sendXhr请求失败："+sendXhr.status );
+					                }
+					            break;
+					            default :
+					                break;
+					        }
+						}
+					};
+				});
+			}(mui, document));
+		</script>
+</html>

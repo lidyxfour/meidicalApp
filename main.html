@@ -1,0 +1,308 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>main</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+		    .mui-content{
+		    	font-family: "微软雅黑";
+		    	background-image: url(images/back2.jpg) ;
+		    }
+			ul {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			.mui-btn {
+				padding:10px;
+			}
+			.mui-btn-block{
+				font-size: 15px;
+				color: #56abe4;
+				background: none;
+				height:100px;
+				border: none;
+			}
+			
+			.sqr_button{
+				align-self: center;
+				display: inline-block;
+				width:48%;
+				padding-left: 10px;
+			}
+			#weather_bar{
+				width:100%;
+				height:50%;
+			}
+			#button_bar{
+				padding-top: 5px;
+			}
+			.icon_image{
+				width:30px;
+				height:30x;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<h1 class="mui-title">首页</h1>
+			<a id='setting' class=" mui-pull-right mui-btn-link"><span class="mui-icon mui-icon-bars"></span></a>
+			<!--<button id='setting' class=" mui-pull-right mui-btn-link">设置</button>-->
+		</header>
+		<div class="mui-content">
+				<div id="weather_bar" style="background-image: ;">
+					<div class="weather_qlty" style="display: inline-block;width:120px;height:120px;margin-top:15px;margin-left: 10px;">
+						<div class="detail_qlty" style=" margin-top: 20px;margin-bottom: 10px;margin-left: 5px;";>
+							<p style="font-size: 40px; color: darkslateblue;">38</p>
+							<p style="color: darkslateblue;">空气质量：优</p>
+						</div>
+					</div>
+					<div class="temp" style="padding: 25px 5px;display: inline-block;float: right;"> <!--这里显示气温-->
+						<p id="temp" style="font-family:'微软雅黑';font-size:36px;color: darkslateblue"><span id="changedTemp">18</span><span>°</span></p>
+						<p id="location" style="font-family: '微软雅黑';font-size:20px;color: darkslateblue"><span id="city">北京</span></p>
+                                      <!--
+                                      	作者：lidyxfour@163.com
+                                      	时间：2016-03-22
+                                      	描述：这里还是之后调用webservice展现返回天气数据
+                                      -->
+					<!--<img id="weather_img" src="images/weather_sample.png"/>-->
+				</div>
+				<div class="other_info" style="margin-top: 30px;margin-left: 10px;">
+						<p id="weather" style="font-family: '微软雅黑';font-size: 40px;display: inline-block;color: darkslateblue;"></p>
+						<img id="weahter_icon" src="images/13.png" style="height: 40px;width: 40px;display: inline-block;"/>
+						<p style="color: darkslateblue;">过敏指数：3<span id="allergic"></span></p>
+						<p id="description" style="color: darkslateblue;">过敏不易发，可以增加户外活动</p>
+			    </div>
+				
+				<div id="button_bar" style="clear: both;">
+					<div id="daily_record" class="sqr_button">
+						<button id="daily_record_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/edit.png" /><br />哮喘日记</button>
+					</div>
+					<div id="outbreak_record" class="sqr_button">
+						<button id="outbreak_record_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/survey.png" /><br />发病记录</button>
+					</div>
+					<div id="doctor_inquiry" class="sqr_button">
+						<button id="doctor_inquiry_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/医生.png" /><br />在线寻医</button>
+					</div>
+					<div id="a_community" class="sqr_button">
+						<button id="a_community_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/社区.png" /><br />患儿社区</button>
+					</div>
+				</div>
+				
+				<!--<div id="bottom_bar">
+					
+				</div>-->
+				
+				
+				<!--<button  class="mui-btn mui-btn-block mui-btn-primary">设置</button>
+				<button id='exit' class="mui-btn mui-btn-block mui-btn-green">关闭</button>
+                <button id='logout' class="mui-btn mui-btn-red mui-btn-block">注销登录</button>-->
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+
+		//获取当前地理位置
+		
+		var myCity = null;
+				document.addEventListener( "plusready", getLocation, false );
+				function getLocation(){
+					var thiscity = document.getElementById("city");
+					var thisdistrict = document.getElementById("district");
+					plus.geolocation.getCurrentPosition(function(p){
+						if(p.address.city==null){
+							thiscity.innerHTML = "";
+						}else{
+							myCity = p.address.city;
+							thiscity.innerHTML = myCity;
+						}},function(e){
+							alert("Geolocation Error"+e.message);
+						});
+				}
+		myCity = "beijing";
+		
+		var weahter_url = "https://api.thinkpage.cn/v3/weather/now.json?key=w43tem83wx4npcxe&language=zh-Hans&unit=c&location="+myCity;
+		var xhr = null;
+		var temp = document.getElementById("changedTemp");
+		var weather = document.getElementById("weather");
+		var weather_img = document.getElementById("weahter_icon");
+		//XHR-request获取信息
+		document.addEventListener("plusready",function(){
+	    xhr = new plus.net.XMLHttpRequest();
+	    xhr.onreadystatechange = function () {
+        switch ( xhr.readyState ) {
+            case 0:
+            	console.log( "xhr请求已初始化" );
+            break;
+            case 1:
+            	console.log("xhr请求已打开" );
+            break;
+            case 2:
+            	console.log( "xhr请求已发送" );
+            break;
+            case 3:
+                console.log( "xhr请求已响应");
+                break;
+            case 4:
+                console.log( "xhr请求已完成");
+                if ( xhr.status == 200 ) {
+                	alert( "xhr请求成功!");
+                	getdata();
+                } else {
+                	console.log( "xhr请求失败："+xhr.status );
+                }
+                break;
+            default :
+                break;
+        }
+	}
+		xhr.open("GET", weahter_url);
+		xhr.send();
+		
+		},false);
+		
+		function getdata(){
+			//var temp = document.getElementById("changedTemp");
+			//var weather = document.getElementById("weather");
+			//var weather_img = document.getElementById("weahter_icon");
+			var json_result = xhr.responseText;
+			var strJson = json_result.toString();
+			strJson = strJson.replace('[','');
+			strJson = strJson.replace(']','');
+			console.log(strJson);
+			var weahterData = mui.parseJSON(strJson);
+			var currentSrc = "images/"+weahterData.results.now.code+".png";
+			console.log(currentSrc);
+			console.log(weahterData.results.now.temperature);
+			temp.innerHTML = weahterData.results.now.temperature;
+			weather.innerHTML = weahterData.results.now.text;
+			weather_img.src = currentSrc;
+			plus.storage.setItem("weather",weahterData.results.now.text);
+			plus.storage.setItem("temp",weahterData.results.now.temperature);
+			plus.storage.setItem("weathercode",weahterData.results.now.code);
+		}
+
+		</script>
+		<script>
+			(function($, doc) {
+				$.init();
+				var settings = app.getSettings();
+				var account = doc.getElementById('account');
+				//
+				window.addEventListener('show', function() {
+					var state = app.getState();
+					account.innerText = state.account;
+				}, false);
+				$.plusReady(function() {
+					var settingPage = $.preload({
+						"id": 'setting',
+						"url": 'setting.html'
+					});
+					//设置
+					var settingButton = doc.getElementById('setting');
+					//settingButton.style.display = settings.autoLogin ? 'block' : 'none';
+					settingButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							id: 'setting',
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+					//哮喘日记
+					var dailyRecordPage = $.preload({
+						"id":'daily_record',
+						"url":'daily_record.html'
+					});
+					
+				    var dailyRecordButton = doc.getElementById('daily_record_btn');
+				    
+				    dailyRecordButton.addEventListener('tap',function(event){
+				    	$.openWindow({
+				    		id:'daily_record',
+				    		show: {
+								aniShow: 'pop-in'
+							},
+				    		styles:{
+				    			popGesture:'hide'
+				    		},
+				    		waiting:{
+				    			autoShow: false
+				    		}
+				    	});
+				    });
+					//发病记录
+					var dailyRecordPage = $.preload({
+						"id":'outbreak_record',
+						"url":'outbreak_record.html'
+					});
+					
+				    var dailyRecordButton = doc.getElementById('outbreak_record_btn');
+				    
+				    dailyRecordButton.addEventListener('tap',function(event){
+				    	$.openWindow({
+				    		id:'outbreak_record',
+				    		show: {
+								aniShow: 'pop-in'
+							},
+				    		styles:{
+				    			popGesture:'hide'
+				    		},
+				    		waiting:{
+				    			autoShow: false
+				    		}
+				    	});
+				    });
+				    
+				    
+				    //test gallery
+					var testPage = $.preload({
+						"id":'new_file',
+						"url":'new_file.html'
+					});
+					
+				    var testButton = doc.getElementById('doctor_inquiry');
+				    
+				    testButton.addEventListener('tap',function(event){
+				    	$.openWindow({
+				    		id:'new_file',
+				    		show: {
+								aniShow: 'pop-in'
+							},
+				    		styles:{
+				    			popGesture:'hide'
+				    		},
+				    		waiting:{
+				    			autoShow: false
+				    		}
+				    	});
+				    });
+					//--
+					$.oldBack = mui.back;
+					var backButtonPress = 0;
+					$.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

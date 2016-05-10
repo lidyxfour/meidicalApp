@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+	    <title>daily_display</title>
+	    <script src="js/mui.min.js"></script>
+	    <script src="libs/echarts-all.js"></script>
+	    <script src="js/app.js"></script>
+	    <link href="css/mui.min.css" rel="stylesheet"/>
+	     <link href="app.css" rel="stylesheet"/>
+	    <link href="css/style.css" rel="stylesheet"/>
+	    <style>
+	    /*#showarea{
+	    	margin:0 5px 5px;
+	    	background-color: #E8E8E8;
+	    	width:auto;
+	    	height: 250px;
+	    }
+	    #searcharea{
+	    	margin:0 5px 5px;
+	    	background-color: #E8E8E8;
+	    	width:auto;
+	    	height: 80px;
+	    }
+	    #commentarea{
+	    	margin:0 5px 5px;
+	    	background-color: #E8E8E8;
+	    	width:auto;
+	    	height: 120px;
+	    }
+	    #actionarea{
+	    	margin:0 5px 5px;
+	    	background-color: #E8E8E8;
+	    	width:auto;
+	    	height: 50px;
+	    #title{
+	    	margin:3px;
+	    }
+	    }*/
+	   .mui-control-content {
+				min-height: 150px;
+			}
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+	    </style>
+	</head>
+	<body>
+	<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">我的哮喘日记</h1>
+	<div id="main-jump" class="main-jump-btn" style="float: right;">
+		<a id="main-jump-btn"><span class="mui-icon mui-icon-home"></span></a>
+	</div>
+	</header>
+	<div class="mui-content">
+		<div id="showarea" class="mui-content-padded">
+			<p id="title">最近一周记录...</p>
+			<div class="chart" id="lineChart" style="width: 320;height: 250px;"></div>
+		</div>
+		
+		<div>
+			<div id="slider" class="mui-slider" style="margin-top: 5px;">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control">
+					<a class="mui-control-item" href="#item1mobile">
+				评估与建议
+			</a>
+					<a class="mui-control-item" href="#item2mobile">
+				自定义检索
+			</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mui-card" style="margin: auto 5px;">
+									<ul class="mui-table-view">
+										<li class="mui-table-view-cell">安全天数<span style="font-size:20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="safe_count"></span>天</li>
+										<li class="mui-table-view-cell">警戒天数<span style="font-size:20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="alert_count"></span>天</li>
+										<li class="mui-table-view-cell">高危天数<span style="font-size:20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="danger_count"></span>天</li>
+										<li class="mui-table-view-cell">总体情况<span style="font-size:20px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="comment"></span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+<script>
+	mui.init({
+				swipeBack: false
+			});
+	(function($) {
+				$('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+				var html2 = '<div id="searcharea" class="mui-content-padded"><div class="mui-input-group"><div id="input_startDate" class="mui-input-row"><label>开始时间</label><input id="startDate" type="date" class="mui-input-clear mui-input"/></div><div id="input_endDate" class="mui-input-row"><label>结束时间</label><input id="endDate" type="date" class="mui-input-clear mui-input"/></div></div><div class="mui-content-padded"><button type="button" id="flexible_search" class="mui-btn mui-btn-primary mui-icon mui-icon-search">搜索</button></div></div>';
+				var item2 = document.getElementById('item2mobile');
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					if (e.detail.slideNumber === 1) {
+						if (item2.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item2.querySelector('.mui-scroll').innerHTML = html2;
+							}, 500);
+						}
+					} 
+				});
+			})(mui);
+</script>
+		
+	</div>
+
+<script>
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					
+					
+					//回到首页
+					var mainPage = $.preload({
+						"id":'main',
+						"url":'main.html'
+					});
+					
+				    var mainJumpButton = doc.getElementById('main-jump-btn');
+				    
+				    mainJumpButton.addEventListener('tap',function(event){
+				    	$.openWindow({
+				    		id:'main',
+				    		show: {
+								aniShow: 'pop-in'
+							},
+				    		styles:{
+				    			popGesture:'hide'
+				    		},
+				    		waiting:{
+				    			autoShow: false
+				    		}
+				    	});
+				    });
+				    
+					//通过echarts实现表格
+					//表格初始化
+					var width = screen.width;
+					var height = screen.height;
+					console.log(width+" "+height);
+					
+					var mychart = echarts.init(document.getElementById("lineChart"));
+					mychart.setOption({
+					        title: {},
+						    tooltip: {
+						        trigger: 'axis'
+						    },
+						    legend: {
+						        data:['晨间PEF','晚间PEF'],
+						        padding: 5
+						    },
+						    toolbox: {
+						        show: true,
+						        feature: {
+						            dataZoom: {},
+						            dataView: {readOnly: false},
+						            magicType: {type: ['line', 'bar']},
+						            restore: {},
+						            saveAsImage: {}
+						        }
+						    },
+						    grid: {
+						    	x: '12%',
+						    	y: '18%',
+						    	x2:'12%',
+						    	y2:'8%',
+						    	width:230,
+						    	height:140
+						    },
+						    xAxis:  {
+						        type: 'category',
+						        boundaryGap: false,
+						        data: ['05-01','05-02','05-03','05-04','05-05','05-06','05-07']
+						        //data:[]
+						    },
+						    yAxis: {
+						        type: 'value',
+						        name:'PEF (L/min)',
+						        nameLocation:'end',
+						        axisLabel : {
+					                interval: 100
+					           },
+					           splitNumber : 3
+						    },
+						    series: [
+						        {
+						            name:'晨间PEF',
+						            type:'line',
+						            //data:[211,180,191,180,170,189,201],
+						            data:[],
+						            markPoint: {
+						                data: [
+						                    {type: 'max', name: '最大值'},
+						                    {type: 'min', name: '最小值'}
+						                ]
+						            },
+						            markLine: {
+						                data: [
+						                    //{type: 'average', name: '平均值'}
+						                ]
+						            }
+						        },
+						        {
+						            name:'晚间PEF',
+						            type:'line',
+						            //data:[208,213,175,220,192,225,214],
+						            data:[],
+						           markPoint: {
+						                data: [
+						                    {type: 'max', name: '最大值'},
+						                    {type: 'min', name: '最小值'}
+						                ]
+						            },
+						            markLine: {
+						                data: [
+						                    //{type: 'average', name: '平均值'}
+						                    //{name: '标线1起点', value: 100, x: 50, y: 20},
+        									//{name: '标线1终点', x: 150, y: 120}   
+						                ]
+						            }
+						        }
+						    ]
+					});
+					
+					
+				   
+					
+					//获取当前日期
+					var curday = new Date();
+					var startday = new Date(curday.getTime() - 6*24*60*60*1000);
+					var curMonth = curday.getMonth()+1;
+					var startMonth = startday.getMonth()+1;
+					
+					var auto_enddate = curday.getFullYear()+"-"+curMonth+"-"+curday.getDate();
+					var auto_startdate = startday.getFullYear()+"-"+startMonth+"-"+startday.getDate();
+					
+					var username = plus.storage.getItem('username');
+					//console.log(auto_startdate+" "+auto_enddate+" "+username);
+					
+					//获取&处理数据的js
+				    //页面加载，自动获取最近七天的数据
+				      //获取最近七天时间，并设置格式    
+				    function getDailyRecord(startDate,endDate){
+				    	var jsonData;
+				    	
+				    	//var startDate = '2016-5-1';
+				    	//var endDate = '2016-5-7';
+				    	var username = 'test4';
+				   //document.addEventListener("plusready",function(){
+				    	var getXhr = new plus.net.XMLHttpRequest();
+						getXhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=utf-8;");
+						getXhr.open("GET","http://139.129.18.57/get_daily_record.php?username="+username+"&startdate="+startDate+"&enddate="+endDate);
+						//getXhr.open("GET","http://139.129.18.57/get_daily_record.php?username="+username"&startDate="+startDate+"&endDate"=endDate);
+						getXhr.send();
+
+						getXhr.onreadystatechange = function () {
+					        switch ( getXhr.readyState ) {
+					            case 0:
+					            	console.log( "getXhr请求已初始化" );
+					            break;
+					            case 1:
+					            	console.log( "getXhr请求已打开" );
+					            break;
+					            case 2:
+					            	console.log( "getXhr请求已发送" );
+					            break;
+					            case 3:
+					                console.log( "getXhr请求已响应");
+					            break;
+					            case 4:
+					                console.log( "getXhr请求已完成");
+					                if ( getXhr.status == 200 ) {
+					                	alert( "getXhr请求成功："+getXhr.responseText );
+					                	jsonData = getXhr.responseText;
+					                	updateData();
+					                	console.log(getXhr.responseText);
+					                }else{
+					                	alert( "getXhr请求失败："+getXhr.status );
+					                }
+					            break;
+					            default :
+					                break;
+						        }
+							};
+						//},false);
+			        
+				   function updateData(){
+				   		
+					    var dataObj = eval(jsonData);
+					    var count = dataObj.length;
+					    
+					    var category = new Array();
+					    var morningPEF = new Array();
+					    var eveningPEF = new Array();
+					    
+					    for(var i = 0; i<count; i++){
+					    	category[i] = dataObj[i].date.substring(5);
+					    	morningPEF[i] = dataObj[i].morning_PEF;
+					    	eveningPEF[i] = dataObj[i].evening_PEF;
+					    }
+					    //生成评价
+					    var safeCount = 0;
+					    var dangerCount = 0;
+					    var alertCount = 0;
+					    var comment = "";
+					    for(var m = 0; m<count; m++){
+					    	if((morningPEF[i] >= 220)&&(eveningPEF[i] >= 220)){
+					    		safeCount += 1;
+					    	}else if ((morningPEF[i] <= 180)||(eveningPEF[i] <= 180)){
+					    		dangerCount += 1;
+					    	}else{
+					    		alertCount += 1;
+					    	}
+					    }
+					    
+					    if(safeCount >= 5){
+					    	comment = "病情控制良好";
+					    }else if(dangerCount <= 3){
+					    	comment = "建议继续监控";
+					    }else{
+					    	comment = "哮喘高发！！！";
+					    }
+					    
+					    doc.getElementById("safe_count").innerHTML = safeCount;
+					    doc.getElementById("alert_count").innerHTML = alertCount;
+					    doc.getElementById("danger_count").innerHTML = dangerCount;
+					    doc.getElementById("comment").innerHTML = comment;
+					    
+					    //异步填充数据
+					    mychart.setOption({
+					    	xAxis:{
+					    		data:category
+					    	},
+					    	series:[{
+					    		name:'晨间PEF',
+					    		data:morningPEF
+					    	},
+					    	{
+					    		name:'晚间PEF',
+					    		data:eveningPEF
+					    	}]
+					    })
+					    
+				   }
+				}
+				    
+				    getDailyRecord(auto_startdate,auto_enddate);
+					
+					//var search_btn = doc.getElementById('flexible_search');
+					//var input_startDay = doc.getElementById('startDate');
+					//var input_endDay = doc.getElementById('endDate');
+					
+					//search_btn.addEventListener("tap", getDailyRecord(auto_startdate,auto_enddate),false);
+					/*$.oldBack = mui.back;
+					var backButtonPress = 0;
+					$.back = function(event) {
+						backButtonPress++;
+						if (backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};*/
+				});
+			}(mui, document));
+		</script>
+	</body>
+</html>
