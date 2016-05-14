@@ -5,10 +5,7 @@
 			print_r("connect success!");
 		}
 	}
-	//$data_ori = file_get_contents("php://input");
-	//$data = $_POST;
-	//print_r($data_ori);
-	//print_r($data);
+	
 	$rawPostBody = file_get_contents('php://input');
 	$postData = json_decode($rawPostBody, true);
 	//print_r($rawPostBody);

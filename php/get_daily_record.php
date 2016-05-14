@@ -4,8 +4,6 @@
 		if($seleDB){
 		    //print_r($_GET);
 			$username = $_GET['username'];
-	        $startDate = $_GET['startdate'];
-	        $endDate = $_GET['enddate'];
 	        
 	        $arr = array();
 	        $result = mysql_query("SELECT `date`,`morning_PEF`,`evening_PEF` FROM `daily_record_processed` WHERE `username` = '$username' AND `date` BETWEEN '$startDate' AND '$endDate' ORDER BY `date`");
