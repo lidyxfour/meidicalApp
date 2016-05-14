@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <script src="js/mui.min.js"></script>
+	<script src="js/app.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css" />
+   
+    <style>
+    	html,
+    	body{
+    		height: 100%;
+    	}
+    	body{
+    		margin:0;
+    	}
+    	.mui-slider{
+    		height: 100%;
+    		padding: 0;
+    	}
+    	.mui-slider-group{
+    		height: 100%;
+    	}
+    </style>
+</head>
+<body>
+<div class="mui-content" style="height: 100%;overflow: hidden;padding: 0px;margin: 0px;">
+	<div id="slider" class="mui-slider">
+		<div class="mui-slider-group">
+			<div class="mui-slider-item" >
+				<img src="images/guide1.png" />
+			</div>
+			
+			<div class="mui-slider-item" >
+				<img src="images/guide2.png" />
+			</div>
+			
+			<div class="mui-slider-item" >
+				<a id="lastItem"><img src="images/guide3.png" /></a>
+			</div>
+		</div>
+		
+	</div>
+	
+</div>
+
+	
+</body>
+ <script type="text/javascript" charset="UTF-8">
+ 	(function($, doc) {
+      	mui.init({
+      	});
+      	mui.plusReady(function(){	
+      		//预加载登录界面
+					var loginPage = $.preload({
+						"id":'login',
+						"url":'login.html'
+					});
+					
+				    var accessBtn = document.getElementById("lastItem");
+				    
+				    accessBtn.addEventListener('swipeleft',function(event){
+				    	$.openWindow({
+				    		id:'login',
+				    		show: {
+								aniShow: 'pop-in'
+							},
+				    		styles:{
+				    			popGesture:'hide'
+				    		},
+				    		waiting:{
+				    			autoShow: false
+				    		}
+				    	});
+				    });
+      	});
+    }(mui, document));
+</script>
+</html>

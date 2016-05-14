@@ -56,9 +56,9 @@
 			<div id="input_medicine" class="mui-input-row">
 				<label>用药</label>
 				<select id="this_medicine" class="mui-table-view">
-					<option class="mui-table-view-cell" label="丙酸氟替卡松气雾剂" value="丙酸氟替卡松气雾剂"></option>
-					<option class="mui-table-view-cell" label="曲尼斯特" value="曲尼斯特"></option>
-					<option class="mui-table-view-cell" label="布地奈德气雾剂" value="布地奈德气雾剂"></option>
+					<option id="option1" class="mui-table-view-cell" label="丙酸氟替卡松气雾剂" value="丙酸氟替卡松气雾剂"></option>
+					<option id="option2" class="mui-table-view-cell" label="曲尼斯特" value="曲尼斯特"></option>
+					<option id="option3" class="mui-table-view-cell" label="布地奈德气雾剂" value="布地奈德气雾剂"></option>
 				</select>
 			</div>
 		</form>
@@ -188,9 +188,25 @@ function addImg(url){
 					//获取主页面传输的天气数据
 					var weather = plus.storage.getItem("weather")+" "+plus.storage.getItem("temp")+"°";
 					console.log("获取到本地天气："+weather);
-					document.getElementById("this_weather").value = weather;
+					var input_weather = document.getElementById("this_weather")
+					input_weather.value = weather;
 					
 					var username = plus.storage.getItem("username");
+					
+					//获取并加载药品信息
+					var medicine1 = document.getElementById("option1");
+					var medicine2 = document.getElementById("option2");
+					var medicine3 = document.getElementById("option3")
+					
+					medicine1.label = plus.storage.getItem("medicine1");
+					medicine1.value = plus.storage.getItem("medicine1");
+					
+					medicine2.label = plus.storage.getItem("medicine2");
+					medicine2.value = plus.storage.getItem("medicine2");
+					
+					medicine3.label = plus.storage.getItem("medicine3");
+					medicine3.value = plus.storage.getItem("medicine3");
+					
 					
 					//获取当前时间信息：
 					var input_day = doc.getElementById("this_day");
@@ -202,6 +218,8 @@ function addImg(url){
 					}else{
 						times = 'evening';
 					}
+					
+					
 					
 					//获取处理上传数据
 					var input_medicine = doc.getElementById("this_medicine");
@@ -274,6 +292,7 @@ function addImg(url){
 					                console.log( "sendXhr请求已完成");
 					                if ( sendXhr.status == 200 ) {
 					                	alert( "sendXhr请求成功："+sendXhr.responseText );
+					                	clear();
 					                } else {
 					                	alert( "sendXhr请求失败："+sendXhr.status );
 					                }
@@ -283,6 +302,9 @@ function addImg(url){
 					        }
 						}
 					};
+					function clear(){
+						plus.webview.getWebviewById("daily_record").reload();
+					}
 				});
 			}(mui, document));
 		</script>

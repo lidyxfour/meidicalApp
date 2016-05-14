@@ -13,6 +13,9 @@
 	     <link href="app.css" rel="stylesheet"/>
 	    <link href="css/style.css" rel="stylesheet"/>
 	    <style type="text/css">
+	    body{
+	    	font-family: "微软雅黑";
+	    }
 	    .outbreak{
 	    	font-family: "微软雅黑";
 			margin: 10px 10px;
@@ -140,11 +143,16 @@
 			</div>
 			
 		</div>
+		
+		
 	</body>
 	<script type="text/javascript">
 		(function($, doc) {
 				$.init();
 				$.plusReady(function() {
+					//获取数据
+					//getOutbreakRecord();
+					
 					//回到首页
 					var mainPage = $.preload({
 						"id":'main',
@@ -168,6 +176,72 @@
 				    	});
 				    });
 				});
+				function getOutbreakRecord(){
+				    	var jsonData;
+				    	var username = 'test4';
+				    	var index = 1;
+				    	var getORXhr = new plus.net.XMLHttpRequest();
+						getORXhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=utf-8;");
+						getORXhr.open("GET","http://139.129.18.57/get_outbreak_record.php?username="+username);
+						getORXhr.send();
+
+						getORXhr.onreadystatechange = function () {
+					        switch ( getORXhr.readyState ) {
+					            case 0:
+					            	console.log( "getORXhr请求已初始化" );
+					            break;
+					            case 1:
+					            	console.log( "getORXhr请求已打开" );
+					            break;
+					            case 2:
+					            	console.log( "getORXhr请求已发送" );
+					            break;
+					            case 3:
+					                console.log( "getORXhr请求已响应");
+					            break;
+					            case 4:
+					                console.log( "getORXhr请求已完成");
+					                if ( getORXhr.status == 200 ) {
+					                	alert( "getORXhr请求成功："+getORXhr.responseText );
+					                	jsonData = getORXhr.responseText;
+					                	console.log(jsonData);
+					                	var dataObj = eval(jsonData);
+					                	console.log(dataObj[0].datetime);
+					                }else{
+					                	alert( "getORXhr请求失败："+getORXhr.status );
+					                }
+					            break;
+					            default :
+					                break;
+						        }
+							};
+			        
+				   function updateData(){
+				   		
+					    var dataObj = eval(jsonData);
+					    var count = dataObj.length;
+					    console.log("执行测试");
+					    
+					    var r_date = dataObj[0].datetime;
+					    var r_weather = dataObj[0].weather;
+					    var r_release = dataObj[0].recovertime;
+					    var r_medi = dataObj[0].medicine;
+					    var r_treat = dataObj[0].treatment;
+					    var r_detail = dataObj[0].description;
+					    var r_img = dataObj[0].img;
+					    
+					    appendRecord(r_date,r_weather,r_release,r_medi,r_treat,r_detail,r_img);
+					    
+					    function appendRecord(t_date,t_weather,t_release,t_medi,t_treat,t_detail,t_img){
+					    	var recordList = document.getElementById("recordlist");
+					    	var newRecord = document.createElement("div");
+					    	newRecord.id = "record"+index;
+					    	newRecord.className = "outbreak";
+					    	newRecord.innerHTML = '<div class="upper-bar"></div><div class="lower-bar"><div class="out_break_item">天气 ：<span id="outbreak_weather"></span></div><div class="out_break_item">缓解时间：<span id="outbreak_release"></span> min</div><div class="out_break_item">用药 ：<span id="outbreak_medicine"></span></div><div class="out_break_item">是否就医：<span id="outbreak_treatment"></span></div><div class="out_break_item">详细记录：<span id="outbreak_detail"></span></div></div><img id="outbreak_img" class="pic_display" src=""/>';
+					    	recordList.appendChild(newRecord);
+						}  
+				   }
+				}
 			}(mui, document));
 	</script>
 </html>

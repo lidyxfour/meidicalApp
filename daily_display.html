@@ -102,35 +102,18 @@
 				</div>
 			</div>
 		</div>
-<script>
-	mui.init({
-				swipeBack: false
-			});
-	(function($) {
-				$('.mui-scroll-wrapper').scroll({
-					indicators: true //是否显示滚动条
-				});
-				var html2 = '<div id="searcharea" class="mui-content-padded"><div class="mui-input-group"><div id="input_startDate" class="mui-input-row"><label>开始时间</label><input id="startDate" type="date" class="mui-input-clear mui-input"/></div><div id="input_endDate" class="mui-input-row"><label>结束时间</label><input id="endDate" type="date" class="mui-input-clear mui-input"/></div></div><div class="mui-content-padded"><button type="button" id="flexible_search" class="mui-btn mui-btn-primary mui-icon mui-icon-search">搜索</button></div></div>';
-				var item2 = document.getElementById('item2mobile');
-				document.getElementById('slider').addEventListener('slide', function(e) {
-					if (e.detail.slideNumber === 1) {
-						if (item2.querySelector('.mui-loading')) {
-							setTimeout(function() {
-								item2.querySelector('.mui-scroll').innerHTML = html2;
-							}, 500);
-						}
-					} 
-				});
-			})(mui);
-</script>
 		
 	</div>
 
 <script>
 			(function($, doc) {
-				$.init();
+				$.init({
+					swipeBack: false
+				});
+				
+				
 				$.plusReady(function() {
-					
+				//设置滑动和搜索页			
 					
 					//回到首页
 					var mainPage = $.preload({
@@ -192,7 +175,7 @@
 						    xAxis:  {
 						        type: 'category',
 						        boundaryGap: false,
-						        data: ['05-01','05-02','05-03','05-04','05-05','05-06','05-07']
+						        data: ['Day1','Day2','Day3','Day4','Day5','Day6','Day7']
 						        //data:[]
 						    },
 						    yAxis: {
@@ -245,8 +228,6 @@
 					});
 					
 					
-				   
-					
 					//获取当前日期
 					var curday = new Date();
 					var startday = new Date(curday.getTime() - 6*24*60*60*1000);
@@ -292,7 +273,7 @@
 					            case 4:
 					                console.log( "getXhr请求已完成");
 					                if ( getXhr.status == 200 ) {
-					                	alert( "getXhr请求成功："+getXhr.responseText );
+					                	//alert( "getXhr请求成功："+getXhr.responseText );
 					                	jsonData = getXhr.responseText;
 					                	updateData();
 					                	console.log(getXhr.responseText);
@@ -368,11 +349,29 @@
 				    
 				    getDailyRecord(auto_startdate,auto_enddate);
 					
-					//var search_btn = doc.getElementById('flexible_search');
-					//var input_startDay = doc.getElementById('startDate');
-					//var input_endDay = doc.getElementById('endDate');
+					$('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+				var html2 = '<div id="searcharea" class="mui-content-padded"><div class="mui-input-group"><div id="input_startDate" class="mui-input-row"><label>开始时间</label><input id="startDate" type="date" class="mui-input-clear mui-input"/></div><div id="input_endDate" class="mui-input-row"><label>结束时间</label><input id="endDate" type="date" class="mui-input-clear mui-input"/></div></div><div class="mui-content-padded"><button type="button" id="flexible_search" class="mui-btn mui-btn-primary mui-icon mui-icon-search">搜索</button></div></div>';
+				var item2 = document.getElementById('item2mobile');
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					if (e.detail.slideNumber === 1) {
+						if (item2.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item2.querySelector('.mui-scroll').innerHTML = html2;
+								var searchBtn = document.getElementById("flexible_search");
+								searchBtn.addEventListener("tap",function(){
+									var input_startDay = document.getElementById("startDate").value;
+									var input_endDay = document.getElementById("endDate").value;
+									console.log(input_startDay+" "+input_endDay);
+									getDailyRecord(input_startDay,input_endDay);
+								},false);
+							}, 500);
+						}
+					} 
+				});
+					//自定义检索
 					
-					//search_btn.addEventListener("tap", getDailyRecord(auto_startdate,auto_enddate),false);
 					/*$.oldBack = mui.back;
 					var backButtonPress = 0;
 					$.back = function(event) {
@@ -389,6 +388,15 @@
 					};*/
 				});
 			}(mui, document));
-		</script>
+</script>
+
+<script>
+	/*mui.init({
+				
+			});
+	(function($) {
+	
+	})(mui);*/
+</script>
 	</body>
 </html>

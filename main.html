@@ -8,7 +8,6 @@
 		<style type="text/css">
 		    .mui-content{
 		    	font-family: "微软雅黑";
-		    	background-image: url(images/back2.jpg) ;
 		    }
 			ul {
 				font-size: 14px;
@@ -19,8 +18,8 @@
 			}
 			.mui-btn-block{
 				font-size: 15px;
-				color: #56abe4;
-				background: none;
+				color: #EFEFF4;
+				background-color: #56ABE4;
 				height:100px;
 				border: none;
 			}
@@ -29,7 +28,7 @@
 				align-self: center;
 				display: inline-block;
 				width:48%;
-				padding-left: 10px;
+				padding-left: 5px;
 			}
 			#weather_bar{
 				width:100%;
@@ -46,13 +45,13 @@
 	</head>
 
 	<body>
-		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
-			<h1 class="mui-title">首页</h1>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px; background-color: #56ABE4;">
+			<h1 class="mui-title" style="font-family: '微软雅黑'; font-weight: bold;color: #EFEFF4;">首页</h1>
 			<a id='setting' class=" mui-pull-right mui-btn-link"><span class="mui-icon mui-icon-bars"></span></a>
 			<!--<button id='setting' class=" mui-pull-right mui-btn-link">设置</button>-->
 		</header>
 		<div class="mui-content">
-				<div id="weather_bar" style="background-image: ;">
+				<div id="weather_bar" style="font-family: '微软雅黑';">
 					<div class="weather_qlty" style="display: inline-block;width:120px;height:120px;margin-top:15px;margin-left: 10px;">
 						<div class="detail_qlty" style=" margin-top: 20px;margin-bottom: 10px;margin-left: 5px;";>
 							<p style="font-size: 40px; color: darkslateblue;">38</p>
@@ -78,16 +77,16 @@
 				
 				<div id="button_bar" style="clear: both;">
 					<div id="daily_record" class="sqr_button">
-						<button id="daily_record_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/edit.png" /><br />哮喘日记</button>
+						<button id="daily_record_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/edit (1).png" /><br />哮喘日记</button>
 					</div>
 					<div id="outbreak_record" class="sqr_button">
-						<button id="outbreak_record_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/survey.png" /><br />发病记录</button>
+						<button id="outbreak_record_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/survey (1).png" /><br />发病记录</button>
 					</div>
 					<div id="doctor_inquiry" class="sqr_button">
-						<button id="doctor_inquiry_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/医生.png" /><br />在线寻医</button>
+						<button id="doctor_inquiry_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/医生 (1).png" /><br />在线寻医</button>
 					</div>
 					<div id="a_community" class="sqr_button">
-						<button id="a_community_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/社区.png" /><br />患儿社区</button>
+						<button id="a_community_btn" class="mui-btn mui-btn-block"><img class=" icon_image mui-icon" src="images/社交圈.png" /><br />患儿社区</button>
 					</div>
 				</div>
 				
@@ -102,6 +101,7 @@
 		</div>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
+		<script src="js/common.js" ></script>
 		<script>
 
 		//获取当前地理位置
@@ -148,7 +148,7 @@
             case 4:
                 console.log( "xhr请求已完成");
                 if ( xhr.status == 200 ) {
-                	alert( "xhr请求成功!");
+                	//alert( "xhr请求成功!");
                 	getdata();
                 } else {
                 	console.log( "xhr请求失败："+xhr.status );
@@ -182,6 +182,7 @@
 			plus.storage.setItem("weather",weahterData.results.now.text);
 			plus.storage.setItem("temp",weahterData.results.now.temperature);
 			plus.storage.setItem("weathercode",weahterData.results.now.code);
+			
 		}
 
 		</script>
@@ -262,7 +263,20 @@
 				    	});
 				    });
 				    
-				    
+				    //设置提示消息
+				    createLocalPushMsg();
+			
+					function createLocalPushMsg(){
+						var options = {
+							sound:"system", 
+							cover:false,
+						};
+						var str = '2016-05-15 ';
+						str += ": 亲爱的家长，该记录哮喘日记咯！";
+						plus.push.createMessage( str, "LocalMSG", options );
+						console.log( "创建本地消息成功！" );
+						console.log( "请到系统消息中心查看！" );
+					}
 				    //test gallery
 					var testPage = $.preload({
 						"id":'new_file',

@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="./css/mui.min.css">
+		<link rel="stylesheet" href="./css/app.css">
+		<script type="text/javascript" src="js/mui.min.js" ></script>
+		<style type="text/css">
+			body{
+				font-family: "微软雅黑";
+			}
+			h4{
+				margin-top: 10px;
+				margin-bottom: 10px;
+			}
+			.mui-content{
+				margin-left: 5px;
+				margin-right: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>
+				</button>
+				<h1 class="mui-center mui-title">我的账户</h1>
+			</div>
+			<div class="mui-content">
+				<h4>基本信息</h4>
+				<div class="mui-input-group">
+					<div class="row mui-input-row">
+						<label>我</label>
+						<input id="set_account" type="text" class="mui-input mui-input-clear"/>
+					</div>
+					<div class="mui-input-row">
+						<label>城市</label>
+						<input id="set_city" type="text" class="mui-input mui-input-clear"/>
+					</div>
+					<div class="mui-input-row">
+						<label>晨间闹钟</label>
+						<input id="set_alert_time_m" type="time" class="mui-input mui-input-clear"/>
+					</div>
+					<div class="mui-input-row">
+						<label>晚间闹钟</label>
+						<input id="set_alert_time_e" type="time" class="mui-input mui-input-clear"/>
+					</div>
+					<div class="mui-input-row">
+						<label>患病时间</label>
+						<input id="set_ill_time" type="date" class="mui-input mui-input-clear"/>
+					</div>
+					
+				</div>
+				
+				
+				<div class="mui-table-view-cell mui-collapse">
+						<a class="mui-navigate-right" href="#" style="background-color: white;">常用药品</a>
+						<div class="mui-collapse-content">
+							<form class="mui-input-group">
+								<div class="mui-input-row">
+									<label>常用药一</label>
+									<select id="set_medicine1" class="mui-table-view">
+										<option class="mui-table-view-cell" label="布地奈德气雾剂" value="布地奈德气雾剂"></option>
+										<option class="mui-table-view-cell" label="丙酸氟替卡松气雾剂" value="丙酸氟替卡松气雾剂"></option>
+										<option class="mui-table-view-cell" label="沙丁胺醇气雾剂" value="沙丁胺醇气雾剂"></option>
+										<option class="mui-table-view-cell" label="特布他林雾化液" value="特布他林雾化液"></option>
+										<option class="mui-table-view-cell" label="曲尼斯特" value="曲尼斯特"></option>
+										<option class="mui-table-view-cell" label="氯雷他定" value="氯雷他定"></option>
+										<option class="mui-table-view-cell" label="爱赛平" value="爱赛平"></option>
+										<option class="mui-table-view-cell" label="咪唑斯汀" value="咪唑斯汀"></option>
+									</select>
+								</div>
+								<div class="mui-input-row">
+									<label>常用药二</label>
+									<select id="set_medicine2" class="mui-table-view">
+										<option class="mui-table-view-cell" label="布地奈德气雾剂" value="布地奈德气雾剂"></option>
+										<option class="mui-table-view-cell" label="丙酸氟替卡松气雾剂" value="丙酸氟替卡松气雾剂"></option>
+										<option class="mui-table-view-cell" label="沙丁胺醇气雾剂" value="沙丁胺醇气雾剂"></option>
+										<option class="mui-table-view-cell" label="特布他林雾化液" value="特布他林雾化液"></option>
+										<option class="mui-table-view-cell" label="曲尼斯特" value="曲尼斯特"></option>
+										<option class="mui-table-view-cell" label="氯雷他定" value="氯雷他定"></option>
+										<option class="mui-table-view-cell" label="爱赛平" value="爱赛平"></option>
+										<option class="mui-table-view-cell" label="咪唑斯汀" value="咪唑斯汀"></option>
+									</select>
+								</div>
+								<div class="mui-input-row">
+									<label>常用药三</label>
+									<select id="set_medicine3" class="mui-table-view">
+										<option class="mui-table-view-cell" label="布地奈德气雾剂" value="布地奈德气雾剂"></option>
+										<option class="mui-table-view-cell" label="丙酸氟替卡松气雾剂" value="丙酸氟替卡松气雾剂"></option>
+										<option class="mui-table-view-cell" label="沙丁胺醇气雾剂" value="沙丁胺醇气雾剂"></option>
+										<option class="mui-table-view-cell" label="特布他林雾化液" value="特布他林雾化液"></option>
+										<option class="mui-table-view-cell" label="曲尼斯特" value="曲尼斯特"></option>
+										<option class="mui-table-view-cell" label="氯雷他定" value="氯雷他定"></option>
+										<option class="mui-table-view-cell" label="爱赛平" value="爱赛平"></option>
+										<option class="mui-table-view-cell" label="咪唑斯汀" value="咪唑斯汀"></option>
+									</select>
+								</div>
+								<div class="mui-button-row">
+									<button id="safe_btn"class="mui-btn mui-btn-primary" type="button">确认</button>&nbsp;&nbsp;
+									<button class="mui-btn mui-btn-primary" type="button" >取消</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				<h4>详细描述</h4>	
+				<div class="mui-content-padded">
+					<textarea id='allergic' class="mui-input mui-input-clear" placeholder="请记录已知过敏原或诊断信息" style="height: 120px;"></textarea>
+				</div>
+				<button id='submit' type="button" class="mui-btn-block mui-btn-primary">保存</button>
+			</div>
+	</body>
+	<script>
+		(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+				var accountName = document.getElementById("set_account");
+				//accountName.value = plus.storage.getItem("$users");
+					//自动定位城市
+				var myCity = null;
+				getLocation();
+				function getLocation(){
+					var thiscity = document.getElementById("set_city");
+					plus.geolocation.getCurrentPosition(function(p){
+						if(p.address.city==null){
+							thiscity.value = "";
+						}else{
+							myCity = p.address.city;
+							thiscity.value = myCity;
+							console.log(thiscity.value);
+							plus.storage.setItem("set_city",myCity);
+							console.log(plus.storage.getItem("set_city"));
+						}},function(e){
+							alert("Geolocation Error"+e.message);
+						});
+				}
+				
+				//var username = plus.storage.getItem('username');
+				    var medicine1 = doc.getElementById('set_medicine1');
+					var medicine2 = doc.getElementById('set_medicine2');
+					var medicine3 = doc.getElementById('set_medicine3');
+					var alertTimeM = doc.getElementById('set_alert_time_m');
+					var alertTimeE = doc.getElementById('set_alert_time_e');
+					var setCity = doc.getElementById('set_city');
+					var illTime = doc.getElementById('set_ill_time');
+					var others = doc.getElementById('allergic');
+					
+					var safe_btn = doc.getElementById("safe_btn");
+					safe_btn.addEventListener("tap",function(){
+						if(medicine1.value == "" && medicine2 == "" && medicine3.value == ""){
+										plus.nativeUI.toast('请至少提供一种常用药物');
+										return;
+									}
+						plus.storage.setItem("medicine1",medicine1.value);
+						plus.storage.setItem("medicine2",medicine2.value);
+						plus.storage.setItem("medicine3",medicine3.value);
+						
+						plus.nativeUI.toast("常用药品保存成功");
+						console.log(plus.storage.getItem("medicine1"));
+						
+					},false)
+					
+					var submit_btn = doc.getElementById('submit');
+					submit_btn.addEventListener("tap",function(){
+						if(setCity.value == "" && alertTime.value == ""){
+										plus.nativeUI.toast('请提供必要信息');
+										return;
+									}
+						var settingData = {
+												"username": accountName.value,
+				    							"medicine1": medicine1.value,
+				    							"medicine2": medicine2.value,
+				    							"medicine3": medicine3.value,
+												"alertTimeM": alertTimeM.value,
+												"alertTimeE": alertTimeE.value,
+												"setCity": setCity.value,
+												"illTime": illTime.value,
+												"others": others.value
+									};
+									console.log(settingData);
+									var jsonSetting = JSON.stringify(settingData);
+									console.log(jsonSetting);
+									var sendSettingXhr = new plus.net.XMLHttpRequest();
+									
+									//上传或者更新用户设置信息
+									sendSettingXhr.setRequestHeader('Content-Type','application/json; charset=utf-8');
+									sendSettingXhr.open("POST","http://139.129.18.57/user_setting.php");
+									sendSettingXhr.send(jsonSetting);
+								    
+								    sendSettingXhr.onreadystatechange = function () {
+								        switch ( sendSettingXhr.readyState ) {
+								            case 0:
+								            	console.log( "sendSettingXhr请求已初始化" );
+								            break;
+								            case 1:
+								            	console.log( "sendSettingXhr请求已打开" );
+								            break;
+								            case 2:
+								            	console.log( "sendSettingXhr请求已发送" );
+								            break;
+								            case 3:
+								                console.log( "sendSettingXhr请求已响应");
+								            break;
+								            case 4:
+								                console.log( "sendSettingXhr请求已完成");
+								                if ( sendSettingXhr.status == 200 ) {
+								                	plus.nativeUI.toast('设置成功！');
+								                	plus.webview.getWebviewById("account").reload();
+								                	console.log( "sendSettingXhr请求成功："+sendSettingXhr.responseText );
+								                } else {
+								                	alert( "sendSettingXhr请求失败："+sendSettingXhr.status );
+								                }
+								            break;
+								            default :
+								                break;
+								        }
+									}
+					},false)
+				});
+			}(mui, document));
+	</script>
+</html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -165,7 +165,7 @@
 					<div class="mui-scroll">
 						<ul class="mui-table-view mui-table-view-chevron">
 							<li class="mui-table-view-cell">
-								<a id="setAccount-btn" href="#setAccount" class="mui-navigate-right">账户设置</a>
+								<a id="setAccount-btn" class="mui-navigate-right">账户设置</a>
 							</li>
 							<li class="mui-table-view-cell">
 								<span>日记提醒</span>
@@ -264,105 +264,48 @@
 				<button id='submit' type="button" class="mui-btn mui-btn-green">提交</button>
 			</div>
 		</div>
-		
-		<div id="setAccount" class="mui-page setAccount">
-			<div class="mui-navbar-inner mui-bar mui-bar-nav">
-				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
-					<span class="mui-icon mui-icon-left-nav"></span>设置
-				</button>
-				<h1 class="mui-center mui-title">我的账户</h1>
-			</div>
-			<div class="mui-page-content">
-				<p>基本信息</p>
-				<div class="mui-input-group">
-					<div class="row mui-input-row">
-						<label>我</label>
-						<input id="set_account" type="text" class="mui-input mui-input-clear"/>
-					</div>
-					<div class="mui-input-row">
-						<label>城市</label>
-						<input id="set_city" type="text" class="mui-input mui-input-clear"/>
-					</div>
-					<div class="mui-input-row">
-						<label>提醒时间</label>
-						<input id="set_alert_time" type="time" class="mui-input mui-input-clear"/>
-					</div>
-					<div class="mui-input-row">
-						<label>患病时间</label>
-						<input id="set_ill_time" type="datetime-local" class="mui-input mui-input-clear"/>
-					</div>
-					
-				</div>
-				<div >
-						<textarea id='allergic' class="mui-input mui-input-clear" placeholder="请记录已知过敏原或诊断信息"></textarea>
-				</div>
-				<div class="mui-table-view-cell mui-collapse">
-						<a class="mui-navigate-right" href="#">常用药品</a>
-						<div class="mui-collapse-content">
-							<form class="mui-input-group">
-								<div class="mui-input-row">
-									<label>常用药一</label>
-									<select id="set_medicine1" class="mui-table-view">
-										<option class="mui-table-view-cell" label="布地奈德气雾剂" value="布地奈德气雾剂"></option>
-										<option class="mui-table-view-cell" label="丙酸氟替卡松气雾剂" value="丙酸氟替卡松气雾剂"></option>
-										<option class="mui-table-view-cell" label="沙丁胺醇气雾剂" value="沙丁胺醇气雾剂"></option>
-										<option class="mui-table-view-cell" label="特布他林雾化液" value="特布他林雾化液"></option>
-										<option class="mui-table-view-cell" label="曲尼斯特" value="曲尼斯特"></option>
-										<option class="mui-table-view-cell" label="氯雷他定" value="氯雷他定"></option>
-										<option class="mui-table-view-cell" label="爱赛平" value="爱赛平"></option>
-										<option class="mui-table-view-cell" label="咪唑斯汀" value="咪唑斯汀"></option>
-									</select>
-								</div>
-								<div class="mui-input-row">
-									<label>常用药二</label>
-									<select id="set_medicine2" class="mui-table-view">
-										<option class="mui-table-view-cell" label="布地奈德气雾剂" value="布地奈德气雾剂"></option>
-										<option class="mui-table-view-cell" label="丙酸氟替卡松气雾剂" value="丙酸氟替卡松气雾剂"></option>
-										<option class="mui-table-view-cell" label="沙丁胺醇气雾剂" value="沙丁胺醇气雾剂"></option>
-										<option class="mui-table-view-cell" label="特布他林雾化液" value="特布他林雾化液"></option>
-										<option class="mui-table-view-cell" label="曲尼斯特" value="曲尼斯特"></option>
-										<option class="mui-table-view-cell" label="氯雷他定" value="氯雷他定"></option>
-										<option class="mui-table-view-cell" label="爱赛平" value="爱赛平"></option>
-										<option class="mui-table-view-cell" label="咪唑斯汀" value="咪唑斯汀"></option>
-									</select>
-								</div>
-								<div class="mui-input-row">
-									<label>常用药三</label>
-									<select id="set_medicine3" class="mui-table-view">
-										<option class="mui-table-view-cell" label="布地奈德气雾剂" value="布地奈德气雾剂"></option>
-										<option class="mui-table-view-cell" label="丙酸氟替卡松气雾剂" value="丙酸氟替卡松气雾剂"></option>
-										<option class="mui-table-view-cell" label="沙丁胺醇气雾剂" value="沙丁胺醇气雾剂"></option>
-										<option class="mui-table-view-cell" label="特布他林雾化液" value="特布他林雾化液"></option>
-										<option class="mui-table-view-cell" label="曲尼斯特" value="曲尼斯特"></option>
-										<option class="mui-table-view-cell" label="氯雷他定" value="氯雷他定"></option>
-										<option class="mui-table-view-cell" label="爱赛平" value="爱赛平"></option>
-										<option class="mui-table-view-cell" label="咪唑斯汀" value="咪唑斯汀"></option>
-									</select>
-								</div>
-								<div class="mui-button-row">
-									<button id="safe_btn"class="mui-btn mui-btn-primary" type="button" onclick="return false;">确认</button>&nbsp;&nbsp;
-									<button class="mui-btn mui-btn-primary" type="button" onclick="return false;">取消</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				<button id='submit' type="button" class="mui-btn-block mui-btn-primary">保存</button>
-			</div>
-		</div>
-
+	
 	</body>
 	<script src="./js/mui.min.js "></script>
-	<script src="./js/mui.view.js "></script>
+	<script type="text/javascript" src="js/mui.view.js" ></script>
 	<script src='./libs/easymob-webim-sdk/jquery-1.11.1.js'></script>
 	<script src='./libs/easymob-webim-sdk/strophe-custom-2.0.0.js'></script>
 	<script src='./libs/easymob-webim-sdk/json2.js'></script>
 	<script src="./libs/easymob-webim-sdk/easemob.im-1.0.5.js"></script>
 	<script src='./js/feedback.js'></script>
 	<script src="./js/feedback-page.js"></script>
-	<script src="./js/mui.locker.js"></script>
 	<script src="./js/app.js"></script>
 	<script>
-		var myCity = null;
+		(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					//预加载账户设置界面
+					var accountPage = $.preload({
+						"id":'account',
+						"url":'account.html'
+					});
+					
+				    var accountButton = doc.getElementById('setAccount-btn');
+				    
+				    accountButton.addEventListener('tap',function(event){
+				    	$.openWindow({
+				    		id:'account',
+				    		show: {
+								aniShow: 'pop-in'
+							},
+				    		styles:{
+				    			popGesture:'hide'
+				    		},
+				    		waiting:{
+				    			autoShow: false
+				    		}
+				    	});
+				    });
+				});
+			}(mui, document));
+	</script>
+	<script>
+		/*var myCity = null;
 				document.addEventListener( "plusready", getLocation, false );
 				function getLocation(){
 					var thiscity = document.getElementById("set_city");
@@ -372,11 +315,13 @@
 						}else{
 							myCity = p.address.city;
 							thiscity.innerHTML = myCity;
+							console.log(thiscity.innerHTML);
 							plus.storage.setItem("set_city",myCity);
+							console.log(plus.storage.getItem("set_city"));
 						}},function(e){
 							alert("Geolocation Error"+e.message);
 						});
-				}
+				}*/
 	</script>
 	<script>
 		mui.init();
@@ -529,81 +474,6 @@
 			});
 		}, false);
 		
-		//账户设置部分
-		var username = plus.storage.getItem('username');
-	    var medicine1 = doc.getElementById('set_medicine1');
-		var medicine2 = doc.getElementById('set_medicine2');
-		var medicine3 = doc.getElementById('set_medicine3');
-		var alertTime = doc.getElementById('set_alert_time');
-		var setCity = doc.getElementById('set_city');
-		var illTime = doc.getElementById('set_ill_time');
-		var others = doc.getElementById('allergic');
-		
-		var safe_btn = doc.getElementById("safe_btn");
-		safe_btn.addEventListener("tap",function(){
-			if(medicine1.value == "" && medicine2 == "" && medicine3.value == ""){
-							plus.nativeUI.toast('请至少提供一种常用药物');
-							return;
-						}
-			plus.storage.setItem("medicine1",medicine1.value);
-			plus.storage.setItem("medicine2",medicine2.value);
-			plus.storage.setItem("medicine3",medicine3.value);
-			
-		},false)
-		
-		var submit_btn = doc.getElementById('submit');
-		submit_btn.addEventListener("tap",function(){
-			if(setCity.value == "" && alertTime.value == ""){
-							plus.nativeUI.toast('请提供必要信息');
-							return;
-						}
-			var settingData = {
-									"username": username,
-	    							"medicine1": medicine1.value,
-	    							"medicine2": medicine2.value,
-	    							"medicine3": medicine3.value,
-									"alertTime": alertTime.value,
-									"setCity": setCity.value,
-									"illTime": illTime.value,
-									"others": others.value
-						};
-						console.log(settingData);
-						var jsonSetting = JSON.stringify(settingData);
-						console.log(jsonSetting);
-						var sendSettingXhr = new plus.net.XMLHttpRequest();
-						//sendXhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8;");
-						sendSettingXhr.setRequestHeader('Content-Type','application/json; charset=utf-8');
-						sendSettingXhr.open("POST","http://139.129.18.57/    daily_record_add.php    ");
-						sendSettingXhr.send(jsonSetting);
-					    
-					    sendSettingXhr.onreadystatechange = function () {
-					        switch ( sendSettingXhr.readyState ) {
-					            case 0:
-					            	console.log( "sendSettingXhr请求已初始化" );
-					            break;
-					            case 1:
-					            	console.log( "sendSettingXhr请求已打开" );
-					            break;
-					            case 2:
-					            	console.log( "sendSettingXhr请求已发送" );
-					            break;
-					            case 3:
-					                console.log( "sendSettingXhr请求已响应");
-					            break;
-					            case 4:
-					                console.log( "sendSettingXhr请求已完成");
-					                if ( sendSettingXhr.status == 200 ) {
-					                	alert( "sendSettingXhr请求成功："+sendSettingXhr.responseText );
-					                } else {
-					                	alert( "sendSettingXhr请求失败："+sendSettingXhr.status );
-					                }
-					            break;
-					            default :
-					                break;
-					        }
-						}
-		},false)
-		
 		//每日提醒设置
 		var alert_switch = document.getElementById("record_alert");
 		alert_switch.addEventListener('toggle', function(event) {
@@ -615,8 +485,10 @@
 							}
 							});
 		function setAlert(){
+			
 			//以下是native.js调用ios原生应用实现的
-			var UILocalNotification = plus.ios.importClass("UILocalNotification");
+			/*var UILocalNotification = plus.ios.importClass("UILocalNotification");
+			var UIApplication = plu.ios.importClass("UIApplication");
 			var noti_morning = new UILocalNotification();
 			var testDay = new Date();
 			var testTime1 = testDay.toLocaleTimeString();
@@ -635,61 +507,13 @@
 			console.log( "提醒条数设置："+noti_morning.plusGetAttribute("applicationIconBadgeNumber") );
 			
 			//添加本地推送到系统
+			var uiapplication = UIApplication.sharedApplication();
+			uiapplication.presentLocalNotificationNow(noti_morning);
 			
-			
-		}
+		}*/
 		
 		 //************************
-		 //锁屏设置
-		/*(function($, doc) {
-			//$.init();
-			$.plusReady(function() {
-				var settings = app.getSettings();
-				var lockStateButton = doc.getElementById("lockState");
-				var locker = doc.querySelector('.mui-locker');
-				lockStateButton.classList[settings.gestures ? 'add' : 'remove']('mui-active')
-				locker.style.display = settings.gestures ? 'block' : 'none';
-				lockStateButton.addEventListener('toggle', function(event) {
-					var isActive = event.detail.isActive;
-					locker.style.display = isActive ? 'block' : 'none';
-					if (!isActive) {
-						//						alert(0);
-						settings.gestures = '';
-						app.setSettings(settings);
-					}
-				}, false);
-				var record = [];
-				locker.addEventListener('done', function(event) {
-					var rs = event.detail;
-					if (rs.points.length < 4) {
-						plus.nativeUI.toast('设定的手势太简单了');
-						record = [];
-						rs.sender.clear();
-						return;
-					}
-					record.push(rs.points.join(''));
-					if (record.length >= 2) {
-						if (record[0] == record[1]) {
-							plus.nativeUI.toast('解锁手势设定成功，以后用户只需使用手势解锁而无需输入密码登录。');
-							settings.gestures = record[0];
-							settings.autoLogin = true;
-							app.setSettings(settings);
-							setTimeout(function() {
-								$.back();
-							}, 200);
-						} else {
-							plus.nativeUI.toast('两次手势不一致,请重新设定');
-						}
-						rs.sender.clear();
-						record = [];
-					} else {
-						plus.nativeUI.toast('请确认手势设定');
-						rs.sender.clear();
-					}
-				}, false);
-			});
-		}(mui, document));*/
-		 //********************
+		
 		var view = viewApi.view;
 		(function($) {
 			//处理view的后退与webview后退
@@ -728,5 +552,4 @@
 			});
 		})(mui);
 	</script>
-
 </html>

@@ -29,6 +29,7 @@ document.addEventListener( "plusready", onPlusReady, false );
 function onPlusReady() {
 }
 // 从相册中选择图片 
+//var index = 1;
 function galleryImg() {
 	// 从相册中选择图片
 	console.log("从相册中选择图片:");
@@ -65,8 +66,8 @@ function addImg(url){
 	img.src = url;
 	img.className = "imag_display";
 	list.appendChild(img);
+	plus.storage.setItem("created_one",url);
 }
-// 从相册中选择多张图片 
 
 	</script>
 	</head>
@@ -82,7 +83,7 @@ function addImg(url){
 		<form id="common_table" class="mui-input-group">
 			<div id="input_day" class="mui-input-row">
 				<label>时间</label>
-				<input id="this_day" type="datetime" class="mui-input-clear mui-input"/>
+				<input id="this_day" type="datetime-local" class="mui-input-clear mui-input"/>
 			</div>
 			<div id="input_weather" class="mui-input-row">
 				<label>天气</label>
@@ -101,7 +102,7 @@ function addImg(url){
 		<form id="or_table" class="mui-input-group" style="margin-top:10px;">
 			<div id="input_remission_time" class="mui-input-row">
 				<label>缓解时间</label>
-				<input id="remission_time" type="datetime" class="mui-input-clear mui-input"/>
+				<input id="remission_time" type="datetime-local" class="mui-input-clear mui-input"/>
 			</div>
 			<div id="input_treatment" class="mui-input-row">
 				<label>是否就医</label>
@@ -165,8 +166,23 @@ function addImg(url){
 					
 					var username = plus.storage.getItem("username");
 					
+					//获取并加载药品信息
+					var medicine1 = document.getElementById("option1");
+					var medicine2 = document.getElementById("option2");
+					var medicine3 = document.getElementById("option3")
+					
+					medicine1.label = plus.storage.getItem("medicine1");
+					medicine1.value = plus.storage.getItem("medicine1");
+					
+					medicine2.label = plus.storage.getItem("medicine2");
+					medicine2.value = plus.storage.getItem("medicine2");
+					
+					medicine3.label = plus.storage.getItem("medicine3");
+					medicine3.value = plus.storage.getItem("medicine3");
+					
 					//获取当前时间信息：
 					var input_day = doc.getElementById("this_day");
+					
 
 					//获取处理上传数据
 					var input_medicine = doc.getElementById("this_medicine");
@@ -177,6 +193,7 @@ function addImg(url){
 					var submitBtn = doc.getElementById("submit");
 					var treatment = false;
 					
+					
 					input_treatment.addEventListener('toggle', function(event) {
 							treatment = event.detail.isActive; 
 							});
@@ -185,7 +202,7 @@ function addImg(url){
 					submitBtn.addEventListener("tap",sendInfo,false);
 					function sendInfo(){
 						
-						if(input_day.value == "" || input_medicine.value == "" || input_pef.value == ""){
+						if(input_day.value == "" || input_medicine.value == "" || input_ReTime.value == ""){
 							plus.nativeUI.toast('您有遗漏的必填项目！');
 							return;
 						}
@@ -195,16 +212,16 @@ function addImg(url){
 									"input_day":input_day.value,
 									"input_medicine":input_medicine.value,
 									"input_ReTime":input_ReTime.value,
-									"input_sym3":treatment,
-									"input_detail":input_detail.value
+									"input_treatment":treatment,
+									"input_detail":input_detail.value,
 						};
 						console.log(outbreakRecord);
 						var recordData = JSON.stringify(outbreakRecord);
 						console.log(recordData);
 						var oRsendXhr = new plus.net.XMLHttpRequest();
-						//sendXhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=UTF-8;");
+
 						oRsendXhr.setRequestHeader('Content-Type','application/json; charset=utf-8');
-						oRsendXhr.open("POST","http://139.129.18.57/  daily_record_add.php  ");
+						oRsendXhr.open("POST","http://139.129.18.57/outbreak_record_add.php");
 						oRsendXhr.send(recordData);
 					    
 					    oRsendXhr.onreadystatechange = function () {
@@ -225,6 +242,7 @@ function addImg(url){
 					                console.log( "oRsendXhr请求已完成");
 					                if ( oRsendXhr.status == 200 ) {
 					                	alert( "sendXhr请求成功："+oRsendXhr.responseText );
+					                	clear();
 					                } else {
 					                	alert( "sendXhr请求失败："+oRsendXhr.status );
 					                }
@@ -234,6 +252,9 @@ function addImg(url){
 					        }
 						}
 					};
+					function clear(){
+						plus.webview.getWebviewById("outbreak_record").reload();
+					}
 				});
 			}(mui, document));
 		</script>			
